@@ -1,0 +1,38 @@
+
+importFrom(Rcpp, evalCpp)
+#import(RcppEigen)
+
+# Exported functions
+export(jmodelTM, jmodelMult)
+
+# Imported functions
+importFrom(nlme, fixed.effects)
+importFrom(nlme, fixef)
+importFrom(nlme, random.effects)
+importFrom(nlme, ranef)
+importFrom(nlme, splitFormula)
+importFrom(statmod, gauss.quad)
+importFrom(stats, AIC)
+importFrom(stats, BIC) 
+importFrom("stats", "cov2cor", "formula", "model.frame",
+           "model.matrix", "model.response", "pnorm", "printCoefmat",
+           "terms")
+import(survival,splines) 
+
+# S3 methods
+S3method(logLik, jmodelTM)
+S3method(logLik, jmodelMult)
+S3method(BIC, jmodelTM)
+S3method(BIC, jmodelMult)
+S3method(print, jmodelTM)
+S3method(print, jmodelMult)
+S3method(print, summary.jmodelTM)
+S3method(print, summary.jmodelMult)
+S3method(summary, jmodelTM)
+S3method(summary, jmodelMult)
+S3method(vcov, jmodelTM)
+S3method(vcov, jmodelMult)
+S3method(AIC, jmodelTM)
+S3method(AIC, jmodelMult)
+
+useDynLib(JSM) 
