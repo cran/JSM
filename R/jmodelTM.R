@@ -6,11 +6,20 @@ jmodelTM <- function (fitLME, fitCOX, data, model = 1, rho = 0, timeVarY = NULL,
   call <- match.call()
 
   CheckInputs(fitLME, fitCOX, rho)
-
-  ID <- as.vector(unclass(fitLME$groups[[1]])) 
-  ni <- as.vector(tapply(ID, ID, length))           
-  bBLUP <- data.matrix(ranef(fitLME)) 
-  dimnames(bBLUP) <- NULL
+  
+  ID1 <- as.vector(unclass(fitLME$groups[[1]]))
+  uniqueID <- !duplicated(ID1)
+  tempID <- which(uniqueID)
+  tempID <- c(tempID, length(ID1) + 1)
+  ni <- diff(tempID) 
+  ID <- rep(1:sum(uniqueID), times = ni)
+  bBLUP1 <- data.matrix(ranef(fitLME))
+  if (ncol(bBLUP1) == 1) {
+    bBLUP <- matrix(bBLUP1[ID1[uniqueID], ], ncol = 1)
+  } else {
+    bBLUP <- bBLUP1[ID1[uniqueID], ]
+    dimnames(bBLUP) <- NULL
+  }
   nLong <- nrow(bBLUP)
   if (ncol(fitCOX$y) != 3)
     stop("\n must fit time-dependent Cox model in coxph().")
@@ -59,7 +68,7 @@ jmodelTM <- function (fitLME, fitCOX, data, model = 1, rho = 0, timeVarY = NULL,
   Y <- as.vector(model.response(mfLongX, "numeric"))
   # give the column in mfLongX which is considered as response, may be transformed #
   
-  data.id <- mydata[!duplicated(ID), ] # pick the first row of each subject in mydata, nrow=n #
+  data.id <- mydata[uniqueID, ] # pick the first row of each subject in mydata, nrow=n #
   
   if (!is.null(timeVarY)) {
     if (!all(timeVarY %in% names(mydata)))
@@ -107,7 +116,6 @@ jmodelTM <- function (fitLME, fitCOX, data, model = 1, rho = 0, timeVarY = NULL,
   
   n <- nLong
   N <- length(Y)
-  ni <- as.vector(tapply(ID, ID, length))
   nu <- length(U)
   ncz <- ncol(Z)
   ncx <- ncol(X)

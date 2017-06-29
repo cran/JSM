@@ -50,7 +50,7 @@ EMiterTMGeneric <- function (theta.old, n, Z.st, Ztime, Ztime2.st, nk, Wtime2, X
   const <- matrix(0, n, GQ) # n*GQ matrix #
 
   calc_expM2(eta.s)
-  temp0a <- eta.s * lamb.old[Index1];
+  temp0a <- eta.s * lamb.old[Index1]
 
   const[nk != 0, ] <- calc_rowsum( (Index), temp0a)
   log.density2 <- - log(1 + rho * const) # n*GQ matrix # 

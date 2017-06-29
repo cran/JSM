@@ -1,6 +1,6 @@
-1e0410568f69f14b29fa3c98d9a29aad *DESCRIPTION
+4c0d696cbcce455c66f0b5b1ea645334 *DESCRIPTION
 d5845ed39197cb62c30e283baec51d21 *LICENSE
-9dac96e622f2c3d18c21c3f20dfb5b5a *NAMESPACE
+2b92fed1c6718577c04026740d918b94 *NAMESPACE
 057872234aba3d27687286ec7d72fb4d *R/AIC.jmodelMult.R
 53595e6b032223cae1b513d893b68631 *R/AIC.jmodelTM.R
 268e576f4ff164d06c6312a872976571 *R/BIC.jmodelMult.R
@@ -11,7 +11,7 @@ f222683964e2b18bb9878c6580b5b0c4 *R/CheckDeltaMult.R
 734842c999b9d08f1aad3c2e424ea709 *R/DQfuncGeneric.R
 21ff47ef09e5e7da61fb4a42486530ac *R/DQfuncMultGeneric.R
 1638557b1c925e439f3f6a569e09f1a3 *R/EMiterMultGeneric.R
-3af5b8e79628a5fd7a16b90371536f35 *R/EMiterTMGeneric.R
+9949752b69626605cbd9eeb27d4bd5fa *R/EMiterTMGeneric.R
 b01733c661c52c90c337f866cd67d0b9 *R/GenerateControlList.R
 335c4422df97452f9d956f4892a362f2 *R/Indexing.R
 90fdd3dd997bd5355de13c092eb8a7c0 *R/InitValMultGeneric.R
@@ -33,8 +33,8 @@ d2a50a9e761b47aa185810875e4aeed6 *R/PRESMult.R
 a950c76844913fa0ce8d0adcd591cf12 *R/SfuncMult.R
 9815dae31ad12e6c945d90da6b08c215 *R/Vec2List.R
 9c988ff32f8419d6d7e109b5cb8b7c7a *R/Vec2ListMult.R
-0fd26bb9790bc6b2f23b0cefec9dbffb *R/jmodelMult.R
-9f9ef6f459ab6e2de0fab51218777ad2 *R/jmodelTM.R
+99e2a229658b0cacb07357e1196188ff *R/jmodelMult.R
+58cf9d88467044bb2adbd9d7774b8a1d *R/jmodelTM.R
 e96114103aee84b9d8297b3da1af94f1 *R/logLik.jmodelMult.R
 b14d4ba2c8f05e78238915787b3d05b6 *R/logLik.jmodelTM.R
 1b6ab84d939230b6e83cd0d676c835ea *R/print.jmodelMult.R
@@ -57,6 +57,7 @@ c8ed3537ee332da05f348d9a60997063 *man/jmodelTM.Rd
 83128d19c1cd88ec0b1675b284b537f5 *man/jmodelTMObject.Rd
 f98c8e3123b03b2afcdab3ca633606da *man/liver.Rd
 1605c8615c22573b2f7c9a8c0a73732c *man/pbc.Rd
+6e98523b407cef7f99a8890b0075f47e *src/JSM_init.c
 b543b7eb73f300a85b573f76e88c1e30 *src/RcppExports.cpp
 1c3127e2b6b323e3cdc1a52f95f591ee *src/calc_M1_M2_Hadamard.cpp
 e82366497c0712f9f0fc31c19876835e *src/calc_M1_M2_Hadamard_a.cpp
@@ -71,11 +72,11 @@ a998e43c47688be5b7661fb44b049299 *src/calc_VY.cpp
 0dfda853c91499fd9f53dd50b71bcf80 *src/calc_expM2.cpp
 d01e65cb42597e8326e472d6899b045f *src/calc_muB.cpp
 f590ceaa484487de5a56b866e1a52c45 *src/calc_muBMult.cpp
-048365e5ebd19afcded9fb682420a54b *src/calc_mult_rowsum1.cpp
-92da74aa4ea8902823e535082ef813d1 *src/calc_mult_rowsum2.cpp
-ea897e9333c8b4212c511126f8b71b9a *src/calc_mult_rowsum3.cpp
-dd110c2a4bf297cf2f524f5bb1985704 *src/calc_rowsum.cpp
-08edd80f6ead4d953844360694d8ef7a *src/calc_rowsum_mult.cpp
+6f893e3844dd9950d051d249aac90eac *src/calc_mult_rowsum1.cpp
+608b7d343279731830f00d33435707dd *src/calc_mult_rowsum2.cpp
+2fa1ab6725a20ba25d4d7c3afda1e918 *src/calc_mult_rowsum3.cpp
+a7ca79e8e919ac88df3e5101fb6182c9 *src/calc_rowsum.cpp
+5e3119ad103cfc0e386cbc91982a3bd2 *src/calc_rowsum_mult.cpp
 4bdb8d73b2db041543b21f140da3e247 *src/calc_tapply_vect_sum.cpp
 105125783bbb3c70f7fe6d816b8e6071 *src/calc_v_a.cpp
 f66a25867b17428f4ff8847c05e1014d *src/fast_lapply_length.cpp

@@ -9,8 +9,12 @@ jmodelMult <- function (fitLME, fitCOX, data, model = 1, rho = 0, timeVarT = NUL
 
   cntrlLst <- GenerateControlList(control, 1)
   
-  ID <- as.vector(unclass(fitLME$groups[[1]])) 
-  ni <- as.vector(tapply(ID, ID, length))           
+  ID1 <- as.vector(unclass(fitLME$groups[[1]]))
+  uniqueID <- !duplicated(ID1)
+  tempID <- which(uniqueID)
+  tempID <- c(tempID, length(ID1) + 1)
+  ni <- diff(tempID) 
+  ID <- rep(1:sum(uniqueID), times = ni)           
   nLong <- length(ni)
   
   if (ncol(fitCOX$y) != 3)

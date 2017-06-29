@@ -15,9 +15,10 @@ Eigen::MatrixXd calc_mult_rowsum2(const Eigen::Map<Eigen::VectorXi> & v, const E
   const unsigned int mr = M.rows();
 
   Eigen::MatrixXd Res = Eigen::MatrixXd::Zero(v.maxCoeff() ,mc);  
-
-  for (unsigned int i = 0; i < mc; ++i){
+  
   unsigned int k = 0;
+  for (unsigned int i = 0; i < mc; ++i){
+    k = 0;
     for(unsigned int j = 0; j < l; ++j){
       Res(k,i) = Res(k,i) + M(j,i) * L(j,i); 
       //Rcpp::Rcout << "i, j, k: " << i <<", " << j <<", " << k << "\n";
@@ -28,7 +29,7 @@ Eigen::MatrixXd calc_mult_rowsum2(const Eigen::Map<Eigen::VectorXi> & v, const E
       }
     }
   }
-
+  Res = Res.block(0, 0, k + 1, mc);
   Res.array() *= A;
 
   return( Res );    

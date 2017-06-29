@@ -18,9 +18,10 @@ Eigen::MatrixXd calc_rowsum_mult(const Eigen::Map<Eigen::VectorXi> & v, const Ei
     Rcpp::stop("The multiplier vector u and the grouping vector v need to have the same size.\n");
   }
   Eigen::MatrixXd Res = Eigen::MatrixXd::Zero(v.maxCoeff() ,m);  
-
+  
+  unsigned int k = 0;
   for (unsigned int i = 0; i < m; ++i){
-    unsigned int k = 0;
+    k = 0;
     for(unsigned int j = 0; j < l; ++j){
  //     Rcpp::Rcout << "i, j, k: " << i << ", " << j << ", " << k <<"\n";
       Res(k,i) = Res(k,i) + M(j,i) * u(j); 
@@ -32,6 +33,6 @@ Eigen::MatrixXd calc_rowsum_mult(const Eigen::Map<Eigen::VectorXi> & v, const Ei
     }
   }
 
-  return( Res );    
+  return( Res.block(0, 0, k + 1, m) );    
 }
 

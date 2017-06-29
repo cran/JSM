@@ -35,4 +35,4 @@ S3method(vcov, jmodelMult)
 S3method(AIC, jmodelTM)
 S3method(AIC, jmodelMult)
 
-useDynLib(JSM) 
+useDynLib(JSM, .registration = TRUE) 

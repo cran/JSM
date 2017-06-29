@@ -15,9 +15,10 @@ Eigen::MatrixXd calc_mult_rowsum1(const Eigen::Map<Eigen::VectorXi> & v, const E
   const unsigned int mr = M.rows();
 
   Eigen::MatrixXd Res = Eigen::MatrixXd::Zero(v.maxCoeff() ,m);  
-
+  
+  unsigned int k = 0;
   for (unsigned int i = 0; i < m; ++i){
-    unsigned int k = 0;
+    k = 0;
     for(unsigned int j = 0; j < l; ++j){
       Res(k,i) = Res(k,i) + M(j,i) * u(j); 
       if (j  <  mr - 1 ) {
@@ -27,7 +28,7 @@ Eigen::MatrixXd calc_mult_rowsum1(const Eigen::Map<Eigen::VectorXi> & v, const E
       }
     }
   }
-
+  Res = Res.block(0, 0, k + 1, m);
   Res.array() *= A;
 
   return( Res );    

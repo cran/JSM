@@ -18,9 +18,10 @@ Rcpp::List calc_mult_rowsum3(const Eigen::Map<Eigen::ArrayXi> & v, const Eigen::
   Rcpp::List output(n);
 
  for (unsigned int u = 0; u < n; u++){
-    Eigen::ArrayXXd Res = Eigen::ArrayXXd::Zero(v.maxCoeff() ,mc);  
+   Eigen::ArrayXXd Res = Eigen::ArrayXXd::Zero(v.maxCoeff() ,mc);
+   unsigned int k = 0;
     for (unsigned int i = 0; i < mc; ++i){
-      unsigned int k = 0;
+      k = 0;
       for (unsigned int j = 0; j < l; ++j){
         Res(k,i) = Res(k,i) + M(j,i) * B(j,u); 
         if(j  < mr - 1 ) {
@@ -30,6 +31,7 @@ Rcpp::List calc_mult_rowsum3(const Eigen::Map<Eigen::ArrayXi> & v, const Eigen::
         }
       }
     }
+    Res = Res.block(0, 0, k + 1, mc);
     Res.array() *= A;
     output[u] = Res;
   }

@@ -16,9 +16,10 @@ Eigen::MatrixXd calc_rowsum(const Eigen::Map<Eigen::VectorXi> & v , const Eigen:
 
   Eigen::MatrixXd Res = Eigen::MatrixXd::Zero(v.maxCoeff() ,m);  
   //Rcpp::Rcout << "Got here!\n"; 
-  // for each column 
+  // for each column
+  unsigned int k = 0;
   for (unsigned int i = 0; i < m; ++i){
-    unsigned int k = 0;
+    k = 0;
     for(unsigned int j = 0; j < l; ++j){
       // Rcpp::Rcout << " i, j, k: " << i<< ", " << j << ", " << k << " \n";
       Res(k,i) = Res(k,i) + M(j,i); 
@@ -29,6 +30,6 @@ Eigen::MatrixXd calc_rowsum(const Eigen::Map<Eigen::VectorXi> & v , const Eigen:
       }
     }
   }
-  return( Res );    
+  return( Res.block(0, 0, k + 1, m) );    
 }
 
