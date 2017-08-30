@@ -11,11 +11,12 @@ longitudinal data. The survival model is assumed to come from a class of transfo
 proportional hazards model and the proportional odds model as special cases. The longitudinal process is modeled by  
 liner mixed-effects models.
 }
+
 \usage{
 jmodelTM(fitLME, fitCOX, data, model = 1, rho = 0, timeVarY = NULL, 
          timeVarT = NULL, control = list(), \dots)
 }
-%- maybe also 'usage' for other objects documented here.
+
 \arguments{
   \item{fitLME}{an object inheriting from class \code{lme} representing a fitted linear mixed-effects model. See \bold{Note}.}
   \item{fitCOX}{an object inheriting from class \code{coxph} representing a fitted Cox proportional hazards regression model. Specifying \code{x = TRUE} is required in the call to \code{coxph()} to include the design matrix in the object fit. See \bold{Note}.}
@@ -69,7 +70,7 @@ Zeng, D. and Lin, D. (2007) Maximum likelihood estimation in semiparametric regr
 }
 
 \author{
-Cong Xu \email{congxu@stanford.edu}
+Cong Xu \email{helenxu1112@gmail.com}
 Pantelis Z. Hadjipantelis \email{pantelis@ucdavis.edu}
 }
 
@@ -110,20 +111,22 @@ summary(fitJT.ph)
 # joint model fit with the default control
 fitJT.ph2 <- jmodelTM(fitLME, fitCOX, aids, timeVarY = 'obstime')
 summary(fitJT.ph2)
-# joint model fit where the survival and longitudinal processes only share the same random effect
+# joint model fit where the survival and longitudinal processes only share 
+# the same random effect
 fitJT.ph3 <- jmodelTM(fitLME, fitCOX, aids, model = 2, timeVarY = 'obstime')
 summary(fitJT.ph3)
 
 # joint model fit which assumes the proportional odds model for the survival process
 fitJT.po <- jmodelTM(fitLME, fitCOX, aids, rho = 1, timeVarY = 'obstime')
 summary(fitJT.po)
-# joint model fit where the survival and longitudinal processes only share the same random effect
+# joint model fit where the survival and longitudinal processes only share 
+# the same random effect
 fitJT.po2 <- jmodelTM(fitLME, fitCOX, aids, model = 2, rho = 1, timeVarY = 'obstime')
 summary(fitJT.po2)
 
 # linear mixed-effects model fit with random intercept and random slope
-fitLME2 <- lme(sqrt(CD4) ~ drug + obstime + I(obstime ^ 2) + drug : obstime + drug : I(obstime ^2), 
-               random = ~ obstime | ID, data = aids)
+fitLME2 <- lme(sqrt(CD4) ~ drug + obstime + I(obstime ^ 2) + drug : obstime + 
+               drug : I(obstime ^2), random = ~ obstime | ID, data = aids)
 # Cox proportional hazards model fit with a time-dependent covariate
 fitCOX2 <- coxph(Surv(start, stop, event) ~ drug + as.numeric(drug) : obstime, 
                  data = aids, x = TRUE)
@@ -134,4 +137,4 @@ summary(fitJT.ph4)
 }
 
 \keyword{survival}
-\keyword{longitudinal}
+\keyword{models}

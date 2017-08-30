@@ -4,9 +4,7 @@
 
 EMiterTMGeneric <- function (theta.old, n, Z.st, Ztime, Ztime2.st, nk, Wtime2, Xtime2, GQ, rho, wGQ, d, Y.st, X.st, ncz, ncz2, b, model, Wtime, Xtime, X, Y, ID, N, ncw, Wtime22, ncx, Xtime22, Z, X2.sum, Indcs){ # Use apply instead of matrix calculation #
 
-
-  
-  # Get Old Estimates #
+    # Get Old Estimates #
   beta.old <- theta.old$beta
   Ysigma2.old <- (theta.old$Ysigma) ^ 2
   Bsigma.old <- theta.old$Bsigma
@@ -71,7 +69,7 @@ EMiterTMGeneric <- function (theta.old, n, Z.st, Ztime, Ztime2.st, nk, Wtime2, X
   post.bi <- if(ncz > 1) {
 		t(sapply(1:n, function(i) post.bi[i, ((i - 1) * ncz + 1) : (i * ncz)])) 
 		} else { 
-             matrix(diag(post.bi), nrow = n) # n*ncz matrix Ehat(bi) #
+		  matrix(diag(post.bi), nrow = n) # n*ncz matrix Ehat(bi) #
 	}  
   #========== Update Bsigma ==========#
   if (ncz > 1) {
@@ -79,11 +77,12 @@ EMiterTMGeneric <- function (theta.old, n, Z.st, Ztime, Ztime2.st, nk, Wtime2, X
   } else {
     tempB <- bi ^ 2
   }
-  post.bi2 <- Integral %*% (t(tempB) * wGQ) # n*(n*ncz^2) matrix #
+  # post.bi2 <- Integral %*% (t(tempB) * wGQ) # n*(n*ncz^2) matrix #
+  post.bi2 <- calc_M1timesM2v(Integral, tempB, wGQ)
   post.bi2 <- if(ncz > 1) {
 		t(sapply(1:n, function(i) post.bi2[i, ((i - 1) * ncz2 + 1) : (i * ncz2)])) 
 	} else { 
-              matrix(diag(post.bi2), nrow = n) # n*(ncz^2) matrix Ehat(bibi^T) #
+	  matrix(diag(post.bi2), nrow = n) # n*(ncz^2) matrix Ehat(bibi^T) #
   }
   Bsigma.new <- if (ncz > 1) matrix(colMeans(post.bi2), ncz, ncz) else mean(post.bi2) # ncz*ncz matrix #
   

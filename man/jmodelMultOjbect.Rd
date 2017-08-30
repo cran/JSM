@@ -35,7 +35,7 @@ An object returned by the \code{jmodelMult} function, inheriting from class \cod
 }
 
 \author{
-Cong Xu \email{congxu@stanford.edu}
+Cong Xu \email{helenxu1112@gmail.com}
 Pantelis Z. Hadjipantelis \email{pantelis@ucdavis.edu}
 }
 
@@ -44,6 +44,6 @@ Pantelis Z. Hadjipantelis \email{pantelis@ucdavis.edu}
 }
 
 \keyword{survival}
-\keyword{longitudinal}
+\keyword{models}
 
 

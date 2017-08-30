@@ -1,8 +1,9 @@
 # Joint Modeling Main Function with NMRE (nonparametric Multiplicative random effects)
 
-jmodelMult <- function (fitLME, fitCOX, data, model = 1, rho = 0, timeVarT = NULL, 
+jmodelMult <- function (fitLME, fitCOX, data, model = 1, rho = 0, timeVarY = NULL, timeVarT = NULL, 
                         control = list(), ...) 
 {
+  cat("Running jmodelMult(), may take some time to finish.\n")
   call <- match.call()
 
   CheckInputs(fitLME, fitCOX, rho)
@@ -58,12 +59,16 @@ jmodelMult <- function (fitLME, fitCOX, data, model = 1, rho = 0, timeVarT = NUL
   # give the column in mfLongX which is considered as response, may be transformed, of length N #
   alpha.name <- rownames(attr(TermsLongX, "factors"))[attr(TermsLongX, "response")]
   
-  tempForm <- strsplit(toString(splitFormula(formLongX)[[1]]), ",")[[1]]
-  tempForm <- tempForm[- 1]
-  tempForm[1] <- " bs(Time"
-  tempForm <- paste(tempForm, collapse = ",")
-  Btime <- as.matrix(eval(parse(text = tempForm)))
-  if (attr(TermsLongX, 'intercept')) Btime <- cbind(rep(1, nLong), Btime)
+  data.id <- mydata[uniqueID, ] # pick the first row of each subject in mydata, nrow=n #
+  
+  if (!is.null(timeVarY)) {
+    if (!all(timeVarY %in% names(mydata)))
+      stop("\n'timeVarY' does not correspond to columns in the fixed-effect design matrix of 'fitLME'.")
+    data.id[timeVarY] <- Time
+  }
+  
+  mfLongX.id <- model.frame(TermsLongX, data = data.id)
+  Btime <- as.matrix(model.matrix(formLongX, mfLongX.id)) # same structure with B, but with only n rows #
   
   U <- sort(unique(Time[d == 1])) # ordered uncensored observed event time #
   tempU <- lapply(Time, function(t) U[t >= U]) 
@@ -76,13 +81,13 @@ jmodelMult <- function (fitLME, fitCOX, data, model = 1, rho = 0, timeVarT = NUL
   Index1 <- unlist(lapply(nk[nk != 0], seq, from = 1)) # vector of length M #
   Index2 <- colSums(d * outer(Time, U, "==")) # vector of length nu #
   
-  tempForm2 <- strsplit(toString(splitFormula(formLongX)[[1]]), ",")[[1]]
-  tempForm2 <- tempForm2[- 1]
-  tempForm2[1] <- " bs(times"
-  tempForm2 <- paste(tempForm2, collapse = ",")
-  Btime2 <- as.matrix(eval(parse(text = tempForm2)))
-  if (attr(TermsLongX, 'intercept')) Btime2 <- cbind(rep(1, M), Btime2)
-  
+  data.id2 <- data.id[Index, ]
+  if (!is.null(timeVarY)) {
+    data.id2[timeVarY] <- times
+  }
+  mfLongX2 <- model.frame(TermsLongX, data = data.id2)
+  Btime2 <- as.matrix(model.matrix(formLongX, mfLongX2))
+
   mfSurv2 <- mfSurv[Index, ]
   if (!is.null(timeVarT)) {
     mfSurv2[timeVarT] <- times
@@ -110,13 +115,15 @@ jmodelMult <- function (fitLME, fitCOX, data, model = 1, rho = 0, timeVarT = NUL
     
   tempResp <- strsplit(toString(formLongX), ", ")[[1]][c(2, 1)]
   tempResp <- paste(tempResp, collapse = "")
-  tempForm3 <- strsplit(toString(splitFormula(formLongX)[[1]]), ", ")[[1]]
-  tempForm3 <- tempForm3[-1]
-  tempForm3[length(tempForm3) + 1] <- "data = fitLME$data"
-  tempForm3 <- paste(tempForm3, collapse = ",")
-  tempForm3 <- paste("lm(", tempResp, tempForm3, ")", sep = "")
-  fitLM <- eval(parse(text = tempForm3))
+  tempForm <- strsplit(toString(splitFormula(formLongX)[[1]]), ", ")[[1]]
+  tempForm <- tempForm[-1]
+  tempForm[length(tempForm) + 1] <- "data = fitLME$data"
+  tempForm <- paste(tempForm, collapse = ",")
+  tempForm <- paste("lm(", tempResp, tempForm, ")", sep = "")
+  fitLM <- eval(parse(text = tempForm))
   gamma <- as.vector(fitLM$coefficients)
+  gamma.names <- names(fitLM$coefficients)
+  gamma.names <- gsub("bs\\(.*\\)", "bs", gamma.names)
   
   surv.init <-  InitValMultGeneric(gamma = gamma,  B.st = B.st, n = n, Y.st = Y.st, ni = ni, model = model, ID = ID, Index = Index, start = start, stop = stop, B = B, Btime = Btime, 
                                    Btime2 = Btime2, event = event, Z = Z, ncz = ncz, Ztime2 = Ztime2, Index2 = Index2, Index1 = Index1, rho = rho, nk = nk, d = d, Ztime22 = Ztime22, 
@@ -184,12 +191,16 @@ jmodelMult <- function (fitLME, fitCOX, data, model = 1, rho = 0, timeVarT = NUL
     warning("\n Standard error estimation method should be either 'PFDS', 'PRES' or 'PLFD'.")
   }
   
-  theta.new$lamb <- cbind("time" = U, "bashaz" = theta.new$lamb)
-  names(theta.new$gamma) <- paste("gamma.", 1:ncb, sep = "")
+  theta.new$lamb <- data.frame("time" = U, "bashaz" = theta.new$lamb)
+  names(theta.new$gamma) <- gamma.names
   names(theta.new$phi) <- phi.names
   names(theta.new$alpha) <- if (model == 1) alpha.name else "alpha"
   names(theta.new$Ysigma) <- "sigma.e"
   names(theta.new$Bsigma) <- "sigma.b"
+  
+  theta.new$est.bi <- matrix(theta.new$est.bi, ncol = 1)
+  colnames(theta.new$est.bi) <- "bi"
+  rownames(theta.new$est.bi) <- (fitLME$groups[[1]])[uniqueID]
   
   result <- list()
   result$coefficients <- theta.new
@@ -206,6 +217,7 @@ jmodelMult <- function (fitLME, fitCOX, data, model = 1, rho = 0, timeVarT = NUL
   result$n <- n
   result$d <- d
   result$rho <- rho
+  result$dataMat <- list(Y = Y, B = B, ID = ID, IDName = fitLME$groups[[1]])
   class(result) <-  unlist(strsplit(deparse(sys.call()), split = '\\('))[1]
 
   return(result)

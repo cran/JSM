@@ -1,9 +1,9 @@
 
-#========== Function to print detailed summary of joint model ==========
+#========== Function to print detailed summary of joint model ==========#
 
 print.summary.jmodelTM <- function (x, digits = max(4, getOption("digits") - 4), printKnots = FALSE, ...) 
 {
-  result = x
+  result <- x
   cat("\nCall:\n")
   cat(paste(deparse(result$call), sep = "\n", collapse = "\n"), "\n")
   cat("\nData Descriptives:\n")

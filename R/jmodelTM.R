@@ -3,6 +3,7 @@
 jmodelTM <- function (fitLME, fitCOX, data, model = 1, rho = 0, timeVarY = NULL, timeVarT = NULL, 
                       control = list(), ...)
 {
+  cat("Running jmodelTM(), may take some time to finish.\n")
   call <- match.call()
 
   CheckInputs(fitLME, fitCOX, rho)
@@ -215,13 +216,15 @@ jmodelTM <- function (fitLME, fitCOX, data, model = 1, rho = 0, timeVarY = NULL,
     warning("\n Standard error estimation method should be either 'PFDS', 'PRES' or 'PLFD'.")
   }
 
-  theta.new$lamb <- cbind("time" = U, "bashaz" = theta.new$lamb)
+  theta.new$lamb <- data.frame("time" = U, "bashaz" = theta.new$lamb)
   names(theta.new$beta) <- varNames$beta.names
   names(theta.new$phi) <- varNames$phi.names
   names(theta.new$alpha) <- if(model == 1) varNames$alpha.name else "alpha"
   names(theta.new$Ysigma) <- "sigma.e"
   if (ncz > 1) dimnames(theta.new$Bsigma) <- dimnames(Bsigma) 
   else names(theta.new$Bsigma) <- "sigma.b"
+  colnames(theta.new$est.bi) <- colnames(Bsigma)
+  rownames(theta.new$est.bi) <- (fitLME$groups[[1]])[uniqueID]
   
   result <- list()
   result$coefficients <- theta.new
@@ -238,6 +241,7 @@ jmodelTM <- function (fitLME, fitCOX, data, model = 1, rho = 0, timeVarY = NULL,
   result$n <- n
   result$d <- d
   result$rho <- rho
+  result$dataMat <- list(Y = Y, X = X, Z = Z, ID = ID, IDName = fitLME$groups[[1]])
   class(result) <-  unlist(strsplit(deparse(sys.call()), split = '\\('))[1]
 
   return(result)

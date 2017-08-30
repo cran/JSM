@@ -35,7 +35,7 @@ An object returned by the \code{jmodelTM} function, inheriting from class \code{
 }
 
 \author{
-Cong Xu \email{congxu@stanford.edu}
+Cong Xu \email{helenxu1112@gmail.com}
 Pantelis Z. Hadjipantelis \email{pantelis@ucdavis.edu}
 }
 
@@ -44,4 +44,4 @@ Pantelis Z. Hadjipantelis \email{pantelis@ucdavis.edu}
 }
 
 \keyword{survival}
-\keyword{longitudinal}
+\keyword{models}
