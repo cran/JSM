@@ -3,7 +3,7 @@ importFrom(Rcpp, evalCpp)
 #import(RcppEigen)
 
 # Exported functions
-export(jmodelTM, jmodelMult)
+export(jmodelTM, jmodelMult, dataPreprocess)
 
 # Imported functions
 importFrom(nlme, fixed.effects)

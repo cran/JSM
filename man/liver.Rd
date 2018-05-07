@@ -34,6 +34,11 @@ Andersen, P. K., Borgan O., Gill, R. D. and Kieding, N. (1993) \emph{Statistical
 Henderson, R., Diggle, P. and Dobson, A. (2002) Identification and efficacy of longitudinal markers for survival. \emph{Biostatistics} \bold{3}, 33--50
 }
 
+\seealso{
+\code{\link{liver.long}},
+\code{\link{liver.surv}}
+}
+
 \examples{
 head(liver)
 }
