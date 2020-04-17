@@ -58,15 +58,15 @@ See \code{\link{jmodelTMObject}} for the components of the fit.
 \references{
 Dabrowska, D. M. and Doksun K. A. (1988) Partial Likelihood in Transformation Models with Censored Data. \emph{Scandinavian Journal of Statistics} \bold{15}, 1--23.
 
-Tsiatis, A. A. and Davidian, M. (2004) Joint modeling of longitudinal and time-to-event data: an overview. 
-\emph{Statistica Sinica} \bold{14}, 809--834.
+Tsiatis, A. A. and Davidian, M. (2004) Joint modeling of longitudinal and time-to-event data: an overview. \emph{Statistica Sinica} \bold{14}, 809--834.
 
-Wulfsohn, M. S. and Tsiatis, A. A. (1997) A joint model for survival and longitudinal data measured with error. 
-\emph{Biometrics} \bold{53}, 330--339.
+Wulfsohn, M. S. and Tsiatis, A. A. (1997) A joint model for survival and longitudinal data measured with error. \emph{Biometrics} \bold{53}, 330--339.
 
-Xu, C., Baines, P. D. and Wang, J. L. (2014) Standard error estimation using the EM algorithm for the joint modeling of survival and longitudinal data. \emph{Biostatistics} \bold{15}, 731--744
+Xu, C., Baines, P. D. and Wang, J. L. (2014) Standard error estimation using the EM algorithm for the joint modeling of survival and longitudinal data. \emph{Biostatistics} \bold{15}, 731--744.
 
-Zeng, D. and Lin, D. (2007) Maximum likelihood estimation in semiparametric regression models with censored data. \emph{Journal of the Royal Statistical Society: Series B} \bold{69}, 507--564
+Xu, C., Hadjipantelis, P. Z. and Wang, J. L. (2020) Semiparametric joint modeling of survival and longitudinal data: the R package JSM. \emph{Journal of Statistical Software} <doi:10.18637/jss.v093.i02>.
+
+Zeng, D. and Lin, D. (2007) Maximum likelihood estimation in semiparametric regression models with censored data. \emph{Journal of the Royal Statistical Society: Series B} \bold{69}, 507--564.
 }
 
 \author{
