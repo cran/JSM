@@ -1,5 +1,4 @@
-myEps <- .Machine$double.eps
-
+myEps <- if (capabilities("long.double")) .Machine$double.eps else 1e-5
 
 test_that(" simple calc_mult_rowsum2 an A * rowsum( L * M  , v)) are equal ", {
 
@@ -11,5 +10,3 @@ test_that(" simple calc_mult_rowsum2 an A * rowsum( L * M  , v)) are equal ", {
   
   expect_equal(as.vector(xmult * rowsum(x * y, group)), as.vector(calc_mult_rowsum2(v = group, A = xmult, x, y)), tolerance = (10 ^ 2) * myEps, scale = 1)
 })
-
-

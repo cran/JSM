@@ -20,14 +20,14 @@ EMiterTMGeneric <- function (theta.old, n, Z.st, Ztime, Ztime2.st, nk, Wtime2, X
   
   M <- nrow(Xtime2)
   
-  VY <- lapply(1:n, function(i) calc_VY( M = Z.st[[i]], A = Bsigma.old, b = Ysigma2.old))  
-  VB <-  lapply(1:n, function(i) calc_VB( Bsigma.old,M2 =  Z.st[[i]], M3 = VY[[i]])) 
-  muB <- lapply(1:n, function(i) calc_muB( BSold=Bsigma.old, Zst=Z.st[[i]], Yst=Y.st[[i]], betaold=beta.old,VY= VY[[i]], Xst=X.st[[i]]))
-  bi.st <- lapply(1:n, function(i) calc_bi_st(v0=muB[[i]], b ,M = VB[[i]]) ) 
+  VY <- lapply(1 : n, function(i) calc_VY(M = Z.st[[i]], A = Bsigma.old, b = Ysigma2.old))  
+  VB <-  lapply(1 : n, function(i) calc_VB(Bsigma.old, M2 =  Z.st[[i]], M3 = VY[[i]])) 
+  muB <- lapply(1 : n, function(i) calc_muB(BSold = Bsigma.old, Zst = Z.st[[i]], Yst = Y.st[[i]], betaold = beta.old, VY = VY[[i]], Xst = X.st[[i]]))
+  bi.st <- lapply(1 : n, function(i) calc_bi_st(v0 = muB[[i]], b, M = VB[[i]]) ) 
  
   bi <- do.call(rbind, bi.st)
-  Ztime.b <- do.call(rbind, lapply(1:n, function(i) Ztime[i, ] %*% bi.st[[i]])) # n*GQ matrix #
-  Ztime2.b <-fast_lapply_length(Ztime2.st, bi.st, (1:n)[nk != 0] - 1)# M*GQ matrix #
+  Ztime.b <- do.call(rbind, lapply(1 : n, function(i) Ztime[i, ] %*% bi.st[[i]])) # n*GQ matrix #
+  Ztime2.b <-fast_lapply_length(Ztime2.st, bi.st, (1 : n)[nk != 0] - 1)# M*GQ matrix #
   
   log.lamb <- log(lamb.old[Index0])
   log.lamb[is.na(log.lamb)] <- 0
@@ -38,7 +38,7 @@ EMiterTMGeneric <- function (theta.old, n, Z.st, Ztime, Ztime2.st, nk, Wtime2, X
   if (model == 2) {
     log.density1 <- log.lamb + as.vector(Wtime_phi.old) + alpha.old * Ztime.b # n*GQ matrix #
     eta.s <- as.vector(Wtime2_phi.old) + alpha.old * Ztime2.b # M*GQ matrix #  
-  } else if(model == 1) {
+  } else if (model == 1) {
     log.density1 <- log.lamb + as.vector(Wtime_phi.old + alpha.old * Xtime %*% beta.old) + alpha.old * Ztime.b # n*GQ matrix #
     eta.s <- as.vector(Wtime2_phi.old + alpha.old * Xtime2 %*% beta.old) + alpha.old * Ztime2.b
   } else {
@@ -58,7 +58,7 @@ EMiterTMGeneric <- function (theta.old, n, Z.st, Ztime, Ztime2.st, nk, Wtime2, X
   deno <- as.vector(f.surv %*% wGQ) # vector of length n #
   Integral <- f.surv / deno # n*GQ matrix f(bi|Oi) #
   
-  f.long <- sapply(1:n, function(i) calc_MVND(Y.st[[i]], as.vector(X.st[[i]] %*% beta.old), VY[[i]]))
+  f.long <- sapply(1 : n, function(i) calc_MVND(Y.st[[i]], as.vector(X.st[[i]] %*% beta.old), VY[[i]]))
 
   lgLik <- sum(log(f.long * deno / (pi ^ (ncz / 2))))
   
@@ -67,7 +67,7 @@ EMiterTMGeneric <- function (theta.old, n, Z.st, Ztime, Ztime2.st, nk, Wtime2, X
   # post.bi <- Integral %*% (t(bi) * wGQ) # n*(n*ncz) matrix #
   post.bi <- calc_M1timesM2v(Integral, bi, wGQ)
   post.bi <- if(ncz > 1) {
-		t(sapply(1:n, function(i) post.bi[i, ((i - 1) * ncz + 1) : (i * ncz)])) 
+		t(sapply(1 : n, function(i) post.bi[i, ((i - 1) * ncz + 1) : (i * ncz)])) 
 		} else { 
 		  matrix(diag(post.bi), nrow = n) # n*ncz matrix Ehat(bi) #
 	}  
@@ -80,7 +80,7 @@ EMiterTMGeneric <- function (theta.old, n, Z.st, Ztime, Ztime2.st, nk, Wtime2, X
   # post.bi2 <- Integral %*% (t(tempB) * wGQ) # n*(n*ncz^2) matrix #
   post.bi2 <- calc_M1timesM2v(Integral, tempB, wGQ)
   post.bi2 <- if(ncz > 1) {
-		t(sapply(1:n, function(i) post.bi2[i, ((i - 1) * ncz2 + 1) : (i * ncz2)])) 
+		t(sapply(1 : n, function(i) post.bi2[i, ((i - 1) * ncz2 + 1) : (i * ncz2)])) 
 	} else { 
 	  matrix(diag(post.bi2), nrow = n) # n*(ncz^2) matrix Ehat(bibi^T) #
   }

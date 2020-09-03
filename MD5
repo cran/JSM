@@ -1,4 +1,4 @@
-0a1f76d9a1fe684c3588abf4273e8c22 *DESCRIPTION
+2e144545a080fcfc054525ffd0226eed *DESCRIPTION
 d5845ed39197cb62c30e283baec51d21 *LICENSE
 d6776e70d84fb42d02a675e9b9451e30 *NAMESPACE
 057872234aba3d27687286ec7d72fb4d *R/AIC.jmodelMult.R
@@ -10,8 +10,8 @@ f222683964e2b18bb9878c6580b5b0c4 *R/CheckDeltaMult.R
 1484de692e6a092e1fd07c3f353af303 *R/CheckInputs.R
 734842c999b9d08f1aad3c2e424ea709 *R/DQfuncGeneric.R
 21ff47ef09e5e7da61fb4a42486530ac *R/DQfuncMultGeneric.R
-1638557b1c925e439f3f6a569e09f1a3 *R/EMiterMultGeneric.R
-c61e438aae7d4113f5d734472254bc7a *R/EMiterTMGeneric.R
+99db1bf82cc2c35403d0a71d6277da4a *R/EMiterMultGeneric.R
+024ad9426cc93e82698660270c475a24 *R/EMiterTMGeneric.R
 b01733c661c52c90c337f866cd67d0b9 *R/GenerateControlList.R
 335c4422df97452f9d956f4892a362f2 *R/Indexing.R
 90fdd3dd997bd5355de13c092eb8a7c0 *R/InitValMultGeneric.R
@@ -103,11 +103,11 @@ a7ca79e8e919ac88df3e5101fb6182c9 *src/calc_rowsum.cpp
 f66a25867b17428f4ff8847c05e1014d *src/fast_lapply_length.cpp
 f97ad7e7e0903a25ed78c1c2cf1f473f *src/fast_rbind_lapply_outerprod.cpp
 489389c54bc4033d1fee356d240768f8 *tests/testthat.R
-6b0930a2062e93f088eb8224b3ded573 *tests/testthat/test_PFDS.R
-652cdd00a5184f79a6146d09f5fa9c8f *tests/testthat/test_PLFD.R
-8b8adb03e2a0991c55d4fbeb6549d62f *tests/testthat/test_calc_mult_rowsum1.R
-9acb297e8645fae6b3cdf4775e721754 *tests/testthat/test_calc_mult_rowsum2.R
-8223e318fe6e3fd647496bea588646a8 *tests/testthat/test_calc_rowsum.R
-8223e318fe6e3fd647496bea588646a8 *tests/testthat/test_calc_rowsum_mult.R
-a373b314287412125acf0152b91b0a70 *tests/testthat/test_jmodelMult.R
-934bf114ac8c4655ad4b2d351479bc08 *tests/testthat/test_jmodelTM.R
+15c01c4195fcfb28a89eb5b9f342ace9 *tests/testthat/test_PFDS.R
+19a38da02a2a6f17d0838c4a081c096c *tests/testthat/test_PLFD.R
+a7311ce2b134ade3cd169a54089842da *tests/testthat/test_calc_mult_rowsum1.R
+1be9c26fa47cd326788baa508bb4a8c2 *tests/testthat/test_calc_mult_rowsum2.R
+7c7788f82611793dd4bfff9962be26cb *tests/testthat/test_calc_rowsum.R
+7c7788f82611793dd4bfff9962be26cb *tests/testthat/test_calc_rowsum_mult.R
+c500b37e89eee3df173044edab8758fe *tests/testthat/test_jmodelMult.R
+9e1fcce01ffcd4fede0a3dd80847847e *tests/testthat/test_jmodelTM.R

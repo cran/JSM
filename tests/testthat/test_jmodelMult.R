@@ -1,6 +1,6 @@
 cat("\nTests for 'jmodelMult'")
 
-myEps <- .Machine$double.eps
+myEps <- if (capabilities("long.double")) .Machine$double.eps else 1e-9
  
 fitLME <- lme(sqrt(CD4) ~ bs(obstime, 4, Boundary.knots = c(0, 21.5)), random =~ 1 | ID, data = aids)
 fitCOX <- coxph(Surv(start, stop, event) ~ drug, data = aids, x = TRUE)
