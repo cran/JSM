@@ -91,10 +91,10 @@ Pantelis Z. Hadjipantelis \email{pantelis@ucdavis.edu}
 
 \seealso{
 \code{\link{jmodelMultObject}},
-\code{\link{lme}},
-\code{\link{coxph}},
-\code{\link{Surv}},
-\code{\link{bs}}
+\code{\link[nlme]{lme}},
+\code{\link[survival]{coxph}},
+\code{\link[survival]{Surv}},
+\code{\link[splines]{bs}}
 }
 
 \examples{

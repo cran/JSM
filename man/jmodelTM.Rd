@@ -88,9 +88,9 @@ Pantelis Z. Hadjipantelis \email{pantelis@ucdavis.edu}
 
 \seealso{
 \code{\link{jmodelTMObject}},
-\code{\link{lme}},
-\code{\link{coxph}},
-\code{\link{Surv}}
+\code{\link[nlme]{lme}},
+\code{\link[survival]{coxph}},
+\code{\link[survival]{Surv}}
 }
 
 \examples{

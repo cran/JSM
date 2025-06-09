@@ -34,7 +34,7 @@ A randomized control trial from Mayo Clinic in which both survival and longitudi
 }
 
 \source{
-\url{http://lib.stat.cmu.edu/datasets/pbcseq}
+\url{https://lib.stat.cmu.edu/datasets/pbcseq}
 
 Fleming, T. and Harrington, D. (1991) \emph{Counting Processes and Survival Analysis}. Wiley, New York.
 }
